@@ -3,7 +3,11 @@ import jwt from "jsonwebtoken";
 import catchAsync from "../utils/catchAsync.js";
 import { promisify } from "util";
 import AppError from "../utils/appError.js";
+import dotenv from "dotenv";
 import bcrypt from "bcrypt";
+import { token } from "morgan";
+
+dotenv.config();
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -11,19 +15,19 @@ const signToken = (id) => {
   });
 };
 
-export const signup = catchAsync(async (req, res) => {
+export const signUp = catchAsync(async (req, res) => {
   const newUser = await User.create(req.body);
   const token = signToken(newUser._id);
   res.status(201).json({
     status: "success",
     token,
     data: {
-      user: newUser,
+      newUser,
     },
   });
 });
 
-export const login = catchAsync(async (req, res) => {
+export const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   if (!email || !password) {
     return next(new AppError("Please provide email and password", 400));
@@ -62,6 +66,13 @@ export const protect = catchAsync(async (req, res, next) => {
       )
     );
   }
+
+  if (currentUser.changePasswordAfter(decoded.iat)) {
+    return next(
+      new AppError("User recently changed password! Please log in again.", 401)
+    );
+  }
+
   req.user = currentUser;
 });
 
