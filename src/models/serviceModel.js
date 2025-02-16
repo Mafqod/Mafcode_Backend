@@ -14,9 +14,20 @@ const serviceSchema = new mongoose.Schema(
     price: {
       type: Number,
     },
+    type: {
+      type: String,
+      enum: ["session", "room"],
+    },
     createdAt: {
       type: Date,
       default: Date.now(),
+    },
+    updatedAt: {
+      type: Date,
+    },
+    isAvailable: {
+      type: Boolean,
+      default: true,
     },
   },
   {
