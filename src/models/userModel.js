@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema(
       required: [true, "Password is required"],
       trim: true,
     },
+    phone: String,
     confirmPassword: {
       type: String,
       required: [true, "Confirm password is required"],
@@ -33,8 +34,8 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ["user", "admin"],
-      default: "user",
+      enum: ["client", "admin"],
+      default: "client",
     },
     profilePicture: String,
   },
