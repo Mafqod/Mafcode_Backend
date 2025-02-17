@@ -36,8 +36,20 @@ const serviceSchema = new mongoose.Schema(
     },
   },
   {
-    toJSON: { virtuals: true, versionKey: false },
-    toObject: { virtuals: true, versionKey: false },
+    toJSON: {
+      virtuals: true,
+      versionKey: false,
+      transform: function (doc, ret) {
+        delete ret._id;
+      },
+    },
+    toObject: {
+      virtuals: true,
+      versionKey: false,
+      transform: function (doc, ret) {
+        delete ret._id;
+      },
+    },
   }
 );
 
