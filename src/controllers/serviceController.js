@@ -3,7 +3,7 @@ import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
 
 export const createService = catchAsync(async (req, res, next) => {
-  const service = await Service.create(req.body);
+  const service = await Service.create(req.body, { createdBy: req.user.id });
 
   res.status(201).json({
     status: "success",

@@ -30,6 +30,10 @@ const serviceSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+    createdBy: {
+      type: mongoose.Schema.ObjectId,
+      ref: "User",
+    },
   },
   {
     toJSON: { virtuals: true, versionKey: false },
