@@ -14,11 +14,11 @@ const bookingSchema = new mongoose.Schema(
     },
     bookingDate: {
       type: Date,
-      required: [true, "Booking date is required"],
+      // required: [true, "Booking date is required"],
     },
     bookingTime: {
       type: String,
-      required: [true, "Booking time is required"],
+      // required: [true, "Booking time is required"],
     },
     createdAt: {
       type: Date,
@@ -45,6 +45,14 @@ const bookingSchema = new mongoose.Schema(
     },
   }
 );
+
+bookingSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: "user",
+    select: "name email",
+  });
+  next();
+});
 
 const Booking = mongoose.model("Booking", bookingSchema);
 
