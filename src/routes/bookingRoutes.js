@@ -11,4 +11,6 @@ router
   .post(bookingController.createBooking)
   .get(bookingController.getAllBookings);
 
+router.route("/:id").get(bookingController.getOneBooking);
+
 export default router;

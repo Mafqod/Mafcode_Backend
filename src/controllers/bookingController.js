@@ -30,3 +30,18 @@ export const getAllBookings = catchAsync(async (req, res, next) => {
     },
   });
 });
+
+export const getOneBooking = catchAsync(async (req, res, next) => {
+  const booking = await Booking.findById(req.params.id);
+
+  if (!booking) {
+    return next(new AppError("Booking not found", 404));
+  }
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      booking,
+    },
+  });
+});
