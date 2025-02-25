@@ -3,8 +3,7 @@ import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
 
 export const createReview = catchAsync(async (req, res, next) => {
-  const { review, rating } = req.body;
-  const { serviceId } = req.params;
+  const { review, rating, serviceId } = req.body;
   const user = req.user.id;
   const newReview = await Review.create({
     review: review,
@@ -37,7 +36,9 @@ export const getReview = catchAsync(async (req, res, next) => {
 });
 
 export const getAllReviewsForService = catchAsync(async (req, res, next) => {
-  const reviews = await Review.find({ service: req.params.serviceId });
+  const service = req.params.id;
+
+  const reviews = await Review.find({ service: service });
 
   res.status(200).json({
     status: "success",

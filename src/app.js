@@ -7,6 +7,7 @@ import globalErrorHandler from "./controllers/errorController.js";
 import userRoutes from "./routes/userRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js";
 import bookingRoutes from "./routes/bookingRoutes.js";
+import reviewRoutes from "./routes/reviewRoutes.js";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/services", serviceRoutes);
 app.use("/api/v1/booking", bookingRoutes);
+app.use("/api/v1/reviews", reviewRoutes);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
