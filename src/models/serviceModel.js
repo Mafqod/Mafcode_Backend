@@ -34,6 +34,12 @@ const serviceSchema = new mongoose.Schema(
       type: mongoose.Schema.ObjectId,
       ref: "User",
     },
+    reviews: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: "Review",
+      },
+    ],
   },
   {
     toJSON: {
@@ -52,6 +58,20 @@ const serviceSchema = new mongoose.Schema(
     },
   }
 );
+
+serviceSchema.pre(/^find/, function (next) {
+  this.populate({ path: "reviews", select: "review rating" });
+  next();
+});
+
+serviceSchema.virtual("averageRating").get(function () {
+  let sum = 0;
+  this.reviews.forEach((review) => {
+    sum += review.rating;
+  });
+
+  return sum / this.reviews.length;
+});
 
 const Service = mongoose.model("Service", serviceSchema);
 

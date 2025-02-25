@@ -45,6 +45,11 @@ const reviewSchema = new mongoose.Schema(
   }
 );
 
+reviewSchema.pre(/^find/, function (next) {
+  this.populate({ path: "user", select: "name role" });
+  next();
+});
+
 const Review = mongoose.model("Review", reviewSchema);
 
 export default Review;

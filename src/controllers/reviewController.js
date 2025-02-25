@@ -1,6 +1,7 @@
 import Review from "../models/reviewModel.js";
 import catchAsync from "../utils/catchAsync.js";
 import AppError from "../utils/appError.js";
+import Service from "../models/serviceModel.js";
 
 export const createReview = catchAsync(async (req, res, next) => {
   const { review, rating, serviceId } = req.body;
@@ -11,6 +12,11 @@ export const createReview = catchAsync(async (req, res, next) => {
     service: serviceId,
     user: user,
   });
+
+  //push the review to the service reviews array
+  const service = await Service.findById(serviceId);
+  service.reviews.push(newReview._id);
+  await service.save();
 
   res.status(201).json({
     status: "success",
@@ -39,6 +45,10 @@ export const getAllReviewsForService = catchAsync(async (req, res, next) => {
   const service = req.params.id;
 
   const reviews = await Review.find({ service: service });
+
+  if (!reviews) {
+    return next(new AppError("No reviews found for that service", 404));
+  }
 
   res.status(200).json({
     status: "success",
