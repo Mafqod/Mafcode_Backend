@@ -13,7 +13,6 @@ export const createReview = catchAsync(async (req, res, next) => {
     user: user,
   });
 
-  //push the review to the service reviews array
   const service = await Service.findById(serviceId);
   service.reviews.push(newReview._id);
   await service.save();
