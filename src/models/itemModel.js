@@ -26,6 +26,11 @@ const itemSchema = new mongoose.Schema(
       required: [true, "Type is required"],
       trim: true,
     },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: [true, "Created by is required"],
+    },
   },
   {
     toJSON: {
