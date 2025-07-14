@@ -59,6 +59,7 @@ const userSchema = new mongoose.Schema(
       versionKey: false,
       transform: function (doc, ret) {
         delete ret._id;
+        delete ret.password;
       },
     },
     toObject: {
@@ -66,6 +67,7 @@ const userSchema = new mongoose.Schema(
       versionKey: false,
       transform: function (doc, ret) {
         delete ret._id;
+        delete ret.password;
       },
     },
   }

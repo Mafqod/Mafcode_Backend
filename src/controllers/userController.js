@@ -14,7 +14,9 @@ export const getAllUsers = catchAsync(async (req, res, next) => {
   const page = req.query.page * 1 || 1;
   const limit = req.query.limit * 1 || 100;
   const skip = (page - 1) * limit;
-  const users = await User.find({ active: true }).skip(skip).limit(limit);
+  const users = await User.find({ active: true, role: "user" })
+    .skip(skip)
+    .limit(limit);
 
   res.status(200).json({
     status: "success",

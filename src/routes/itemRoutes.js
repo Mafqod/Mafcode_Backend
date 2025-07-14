@@ -17,3 +17,5 @@ router
   .get(itemController.getItem)
   .patch(restrictTo("admin"), itemController.updateItem)
   .delete(restrictTo("admin"), itemController.deleteItem);
+
+export default router;
