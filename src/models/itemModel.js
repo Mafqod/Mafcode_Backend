@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { type } from "os";
 const itemSchema = new mongoose.Schema(
   {
     name: {
@@ -29,6 +30,12 @@ const itemSchema = new mongoose.Schema(
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+    },
+    status: {
+      type: String,
+      enum: ["lost", "found", "recovered"],
+      default: "lost",
+      required: [true, "Status is required"],
     },
   },
   {
