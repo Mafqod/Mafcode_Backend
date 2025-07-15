@@ -16,7 +16,7 @@ export const createItem = catchAsync(async (req, res) => {
 });
 
 export const getAllItemsForUSer = catchAsync(async (req, res) => {
-  const items = await Item.find({ createdBy: req.user._id });
+  const items = await Item.find({ createdBy: req.user._id, active: true });
   res.status(200).json({
     status: "success",
     results: items.length,
@@ -27,7 +27,7 @@ export const getAllItemsForUSer = catchAsync(async (req, res) => {
 });
 
 export const getAllItems = catchAsync(async (req, res) => {
-  const items = await Item.find();
+  const items = await Item.find({ active: true });
   res.status(200).json({
     status: "success",
     results: items.length,

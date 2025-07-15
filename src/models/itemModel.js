@@ -37,6 +37,10 @@ const itemSchema = new mongoose.Schema(
       default: "lost",
       required: [true, "Status is required"],
     },
+    active: {
+      type: Boolean,
+      default: true,
+    },
   },
   {
     toJSON: {
