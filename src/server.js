@@ -12,7 +12,8 @@ mongoose
   })
   .catch((error) => console.log("database error", error.message));
 
-const port = process.env.PORT || 9000;
+app.get("/health", (req, res) => res.sendStatus(200));
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
   console.log("Server is running on port " + port);
