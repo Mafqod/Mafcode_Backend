@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { type } from "os";
 const itemSchema = new mongoose.Schema(
   {
     name: {
@@ -40,6 +39,11 @@ const itemSchema = new mongoose.Schema(
     active: {
       type: Boolean,
       default: true,
+    },
+    Image: {
+      type: String,
+      required: [true, "Image is required"],
+      trim: true,
     },
   },
   {

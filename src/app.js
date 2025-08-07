@@ -7,7 +7,7 @@ import globalErrorHandler from "./controllers/errorController.js";
 import userRoutes from "./routes/userRoutes.js";
 import itemRoutes from "./routes/itemRoutes.js";
 import placeRoutes from "./routes/placeRoutes.js";
-
+import requestRoutes from "./routes/requestRoute.js";
 const app = express();
 
 app.use(cors());
@@ -19,6 +19,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/items", itemRoutes);
 app.use("/api/v1/places", placeRoutes);
+app.use("/api/v1/requests", requestRoutes);
 
 app.all("*", (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
